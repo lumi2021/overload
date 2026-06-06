@@ -1,0 +1,59 @@
+#!/usr/bin/env python
+import os
+
+env = SConscript("../godot-cpp/SConstruct")
+
+env.Append(CPPPATH=["src"])
+
+build_dir = ".build/{}_{}".format(env["platform"], env["target"])
+env.VariantDir(build_dir, "src", duplicate=0)
+
+sources = []
+for f in Glob("src/*.cpp"):
+    rel_path = os.path.relpath(str(f), "src")
+    sources.append(os.path.join(build_dir, rel_path))
+# ------------------------------------------
+
+out = "../project/bin"
+lib_name = "overloaded_core"
+
+match env["platform"]:
+    case "macos":
+        library = env.SharedLibrary(
+            "{}/lib_{}.{}.{}.framework/libgdexample.{}.{}".format(
+                out, lib_name,
+                env["platform"], env["target"],
+                lib_name,
+                env["platform"], env["target"]
+            ),
+            source=sources,
+        )
+
+    case "ios":
+        if env["ios_simulator"]:
+            library = env.StaticLibrary(
+                "{}/lib_{}.{}.{}.simulator.a".format(
+                    out, lib_name,
+                    env["platform"], env["target"]
+                ),
+                source=sources,
+            )
+        else:
+            library = env.StaticLibrary(
+                "{}/lib_{}.{}.{}.a".format(
+                    out, lib_name,
+                    env["platform"], env["target"]
+                ),
+                source=sources,
+            )
+
+    case _:
+        library = env.SharedLibrary(
+            "{}/lib_{}{}{}".format(
+                out, lib_name,
+                env["suffix"], env["SHLIBSUFFIX"]
+            ),
+            source=sources,
+        )
+
+Default(library)
