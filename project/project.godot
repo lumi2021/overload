@@ -14,6 +14,15 @@ config/name="overload"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+ThemeServer="*uid://dm2rig55chuf3"
+
+[display]
+
+window/stretch/aspect="expand"
+window/stretch/scale_mode="integer"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
