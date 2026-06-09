@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://dgfkinx1tv5sg"]
+
+[ext_resource type="Script" uid="uid://curi0jfyen2al" path="res://environments/component_lab/component_lab.gd" id="1_kod1m"]
+[ext_resource type="Script" uid="uid://4en05pn78vv6" path="res://environments/component_lab/component_lab_camera.gd" id="2_1yl5m"]
+[ext_resource type="Texture2D" uid="uid://dgowe730ri4vb" path="res://sprites/resistor-lr.svg" id="2_tbs04"]
+
+[node name="ComponentLab" type="Node2D" unique_id=944886230]
+script = ExtResource("1_kod1m")
+grid_size = 254
+hide_grid_zoom = 0.0
+
+[node name="Nodes" type="Node2D" parent="." unique_id=220334452]
+
+[node name="Resistor" type="Node2D" parent="Nodes" unique_id=381626350]
+
+[node name="Sprite2D" type="Sprite2D" parent="Nodes/Resistor" unique_id=1315098075]
+position = Vector2(-7, -128)
+texture = ExtResource("2_tbs04")
+centered = false
+offset = Vector2(-2, 3)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2127815337]
+script = ExtResource("2_1yl5m")
+zoom_start = 0.05
+zoom_min = 0.005
+zoom_max = 1.0
+zoom_meter = NodePath("../CanvasLayer/gui/ZoomMeter")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=354304093]
+
+[node name="gui" type="Control" parent="CanvasLayer" unique_id=2065859930]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="ZoomMeter" type="ProgressBar" parent="CanvasLayer/gui" unique_id=835684013]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -24.0
+offset_top = 124.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 2
+max_value = 1.0
+fill_mode = 3
+show_percentage = false

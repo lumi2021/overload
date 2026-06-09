@@ -394,6 +394,39 @@ func create_godot_theme(theme_data: Dictionary, font_data: Dictionary = {}) -> T
 	theme.set_stylebox("disabled", "CustomMenuBar", idle_menubar_bg)
 
 	# =========================================================
+	# MENUBAR OPTION
+	# =========================================================
+
+	var idle_menubar_option_bg = StyleBoxFlat.new()
+	idle_menubar_option_bg.bg_color = Color.TRANSPARENT
+	idle_menubar_option_bg.content_margin_left = 10
+	idle_menubar_option_bg.content_margin_right = 10
+
+	var hover_menubar_option_bg = StyleBoxFlat.new()
+	hover_menubar_option_bg.bg_color = window_bg.lightened(0.25) if is_dark_mode else window_bg.darkened(0.25)
+	hover_menubar_option_bg.content_margin_left = 10
+	hover_menubar_option_bg.content_margin_right = 10
+	
+	var pressed_menubar_option_bg = StyleBoxFlat.new()
+	pressed_menubar_option_bg.bg_color = window_bg
+	pressed_menubar_option_bg.content_margin_left = 10
+	pressed_menubar_option_bg.content_margin_right = 10
+	
+	var text_color = window_fg
+	var tip_color = Color(text_color, 0.5)
+	
+	theme.set_type_variation("MenuBarOption", "BaseButton")
+	theme.set_stylebox("normal", "MenuBarOption", idle_menubar_option_bg)
+	theme.set_stylebox("hover", "MenuBarOption", hover_menubar_option_bg)
+	theme.set_stylebox("pressed", "MenuBarOption", pressed_menubar_option_bg)
+	theme.set_stylebox("focus", "MenuBarOption", idle_menubar_bg)
+	theme.set_stylebox("disabled", "MenuBarOption", idle_menubar_bg)
+	theme.set_stylebox("disabled", "MenuBarOption", idle_menubar_bg)
+	
+	theme.set_color("text_font_color", "MenuBarOption", text_color)
+	theme.set_color("tip_font_color", "MenuBarOption", tip_color)
+
+	# =========================================================
 	# LABEL
 	# =========================================================
 	theme.set_color("font_color",        "Label", window_fg)
@@ -643,7 +676,7 @@ func create_godot_theme(theme_data: Dictionary, font_data: Dictionary = {}) -> T
 	pb_bg.border_color = border_subtle
 
 	var pb_fill = StyleBoxFlat.new()
-	pb_fill.bg_color = accent.darkened(0.5)
+	pb_fill.bg_color = accent
 	pb_fill.set_corner_radius_all(4)
 
 	theme.set_stylebox("background", "ProgressBar", pb_bg)

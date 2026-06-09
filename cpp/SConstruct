@@ -8,8 +8,10 @@ env.Append(CPPPATH=["src"])
 build_dir = ".build/{}_{}".format(env["platform"], env["target"])
 env.VariantDir(build_dir, "src", duplicate=0)
 
+src = (Glob("src/*.cpp") + Glob("src/**/*.cpp"))
+
 sources = []
-for f in Glob("src/*.cpp"):
+for f in src:
     rel_path = os.path.relpath(str(f), "src")
     sources.append(os.path.join(build_dir, rel_path))
 # ------------------------------------------

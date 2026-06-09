@@ -1,7 +1,9 @@
-#include <godot_cpp/godot.hpp>
 #include <godot_cpp/core/class_db.hpp>
+#include <godot_cpp/godot.hpp>
 
-#include "nodes/gdexample.h"
+// Nodes
+#include "nodes/Component.h"
+#include "nodes/Resistor.h"
 
 using namespace godot;
 
@@ -12,7 +14,8 @@ void initialize_module(
         return;
     }
 
-    ClassDB::register_class<GDExample>();
+    ClassDB::register_class<Component>(true);
+    ClassDB::register_class<Resistor>();
 }
 
 void uninitialize_module(
@@ -23,9 +26,7 @@ void uninitialize_module(
     }
 }
 
-extern "C" {
-
-GDExtensionBool GDE_EXPORT __overloaded_core_init__(
+extern "C" GDExtensionBool GDE_EXPORT __overloaded_core_init__(
     GDExtensionInterfaceGetProcAddress p_get_proc_address,
     GDExtensionClassLibraryPtr p_library,
     GDExtensionInitialization *r_initialization
@@ -38,11 +39,7 @@ GDExtensionBool GDE_EXPORT __overloaded_core_init__(
 
     init_obj.register_initializer(initialize_module);
     init_obj.register_terminator(uninitialize_module);
-    init_obj.set_minimum_library_initialization_level(
-        MODULE_INITIALIZATION_LEVEL_SCENE
-    );
+    init_obj.set_minimum_library_initialization_level(MODULE_INITIALIZATION_LEVEL_SCENE);
 
     return init_obj.init();
-}
-
 }
